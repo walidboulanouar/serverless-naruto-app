@@ -1,0 +1,36 @@
+<h1>Naruto SHIPPUDDEN</h1>
+<table>
+  <tr>
+    <th>image</th>
+    <th>name</th>
+    <th>caracteristique</th>
+  </tr>
+  <tr>
+    <td><img src="./../assets/naruto.jpg" width="100px" /></td>
+    <td>Naruto UZUMAKI</td>
+    <td>Kyubi</td>
+  </tr>
+</table>
+<router-outlet></router-outlet>
+<div>
+  <h1 *ngIf="authService.user | async">
+    Welcom User: {{ (authService.user | async)?.email}}!
+  </h1>
+<div *ngIf="!(authService.user | async)">
+
+  <input type="text" [(ngModel)]="email" placeholder="Enter email"/>
+  <input type="password" [(ngModel)]="password" placeholder="Enter password"/>
+
+<button (click)="signup()" [disabled]="!email || !password">
+  Signup
+</button>
+
+<button (click)="login()" [disabled]="!email || !password">
+  Login
+</button>
+</div>
+
+<button (click)="logout()" *ngIf="authService.user | async">
+  Logout
+</button>
+</div>
