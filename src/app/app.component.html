@@ -1,4 +1,4 @@
-<h1>Naruto SHIPPUDDEN</h1>
+<h1>Anime</h1>
 <table>
   <tr>
     <th>image</th>
@@ -6,31 +6,46 @@
     <th>caracteristique</th>
   </tr>
   <tr>
-    <td><img src="./../assets/naruto.jpg" width="100px" /></td>
-    <td>Naruto UZUMAKI</td>
-    <td>Kyubi</td>
+    <td><img src="{{data.img}}" width="100px" /></td>
+    <td>{{data.nom}}</td>
+    <td>{{data.caracteristique}}</td>
   </tr>
 </table>
-<router-outlet></router-outlet>
+
+
+<br /><br />
+<hr />
+<br /><br />
+
+
 <div>
+  <!-- this header tag displays only when user is logged-in -->
   <h1 *ngIf="authService.user | async">
-    Welcom User: {{ (authService.user | async)?.email}}!
+    Welcome User: {{ (authService.user | async)?.email }}!
   </h1>
-<div *ngIf="!(authService.user | async)">
 
-  <input type="text" [(ngModel)]="email" placeholder="Enter email"/>
-  <input type="password" [(ngModel)]="password" placeholder="Enter password"/>
+  <!-- this div displays only when user is not-logged-in -->
+  <div *ngIf="!(authService.user | async)">
+    <!-- these input fields takes email and password from user -->
+    <input type="text" [(ngModel)]="email" placeholder="Enter email"/>
+    <input type="password" [(ngModel)]="password" placeholder="Enter password"/>
 
-<button (click)="signup()" [disabled]="!email || !password">
-  Signup
-</button>
+    <!-- user click this button to signup -->
+    <button (click)="signup()" [disabled]="!email || !password">
+      Signup
+    </button>
 
-<button (click)="login()" [disabled]="!email || !password">
-  Login
-</button>
+
+    <!-- user click this button to login -->
+    <button (click)="login()" [disabled]="!email || !password">
+      Login
+    </button>
+  </div>
+
+  <!-- user click this button to logout -->
+  <!-- this button displays only when user is logged-in -->
+  <button (click)="logout()" *ngIf="authService.user | async">
+    Logout
+  </button>
 </div>
-
-<button (click)="logout()" *ngIf="authService.user | async">
-  Logout
-</button>
-</div>
+<router-outlet></router-outlet>
